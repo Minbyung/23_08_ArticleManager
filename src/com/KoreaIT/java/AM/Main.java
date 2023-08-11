@@ -1,4 +1,6 @@
 package com.KoreaIT.java.AM;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,9 +11,15 @@ public class Main {
 
     int lastArticleId = 0;
 
+    List<Article> articles = new ArrayList<>();
+
+
+
+
+
     while (true) {
       System.out.printf("명령어 ) ");
-      String cmd = sc.nextLine();
+      String cmd = sc.nextLine().trim(); //trim -> 양옆공백자름
 
       if (cmd.length() == 0) {
         System.out.println("명령어를 입력하세요");
@@ -37,6 +45,11 @@ public class Main {
           System.out.printf("내용 : ");
           String body = sc.nextLine();
 
+
+       Article article = new Article(id, title, body);
+       articles.add(article); // 리모컨 어레이리스트에 추가
+
+
  //       System.out.printf("%s, %s\n", title, body);
         System.out.printf("%d번 글이 생성 되었습니다\n", id);
 
@@ -51,12 +64,23 @@ public class Main {
 
 
       } else if (cmd.equals("article list")) {
-        System.out.println("게시글이 없습니다");
-      } else {
-        System.out.println("존재하지 않는 명령어입니다");
-        continue;
-      }
+        if (articles.size() == 0) {
+          System.out.println("게시글이 없습니다");
+          continue;
 
+
+        } else {
+          for (int i = articles.size() - 1; i >= 0; i--) {
+            Article article = articles.get(i);
+            System.out.printf("%d, %s\n", article.id, article.title);
+          }
+          System.out.println("게시글이 존재");
+        }
+
+      } else{
+            System.out.println("존재하지 않는 명령어입니다");
+            continue;
+          }
     }
 
 
@@ -69,3 +93,15 @@ public class Main {
 }
 
 
+class Article {
+  int id;
+  String title;
+  String body;
+
+  Article(int id, String title, String body) {
+    this.id = id;
+    this.title = title;
+    this.body = body;
+
+  }
+}
