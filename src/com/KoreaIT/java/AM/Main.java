@@ -7,25 +7,57 @@ public class Main {
     Scanner sc = new Scanner(System.in); //sc -> 스캐너 객체와 연결된 변수
 
 
-    System.out.printf("명령어 ) ");
+    int lastArticleId = 0;
+
+    while (true) {
+      System.out.printf("명령어 ) ");
+      String cmd = sc.nextLine();
+
+      if (cmd.length() == 0) {
+        System.out.println("명령어를 입력하세요");
+        continue;
+      }
 
 
-//    String cmd = sc.nextLine(); // cmd변수에 입력한 내용 저장
-    String cmd = sc.next(); // 넥스트는 맨 처음 어절만 저장, 넥스트라인은 한 줄 저장
-//    cmd = sc.nextLine(); // 넥스트라인이 두번, 두번 입력
-    System.out.printf("입력된 명령어 : %s\n", cmd);
-
-
-    int num = sc.nextInt();
-    System.out.printf("입력된 정수 : %d\n", num);
+      if (cmd.equals("system exit")) {
+        break;  //반복문 탈출해라
+      }
 
 
 
 
 
 
+      if (cmd.equals("article write")) {
+        int id = lastArticleId + 1;
+        lastArticleId = id;
+
+          System.out.printf("제목 : ");
+          String title = sc.nextLine();
+          System.out.printf("내용 : ");
+          String body = sc.nextLine();
+
+ //       System.out.printf("%s, %s\n", title, body);
+        System.out.printf("%d번 글이 생성 되었습니다\n", id);
 
 
+
+
+
+
+
+
+
+
+
+      } else if (cmd.equals("article list")) {
+        System.out.println("게시글이 없습니다");
+      } else {
+        System.out.println("존재하지 않는 명령어입니다");
+        continue;
+      }
+
+    }
 
 
 
@@ -35,3 +67,5 @@ public class Main {
     System.out.println("== 프로그램 종료 ==");
   }
 }
+
+
