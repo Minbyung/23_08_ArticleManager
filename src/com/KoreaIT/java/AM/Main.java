@@ -14,9 +14,6 @@ public class Main {
     List<Article> articles = new ArrayList<>();
 
 
-
-
-
     while (true) {
       System.out.printf("명령어 ) ");
       String cmd = sc.nextLine().trim(); //trim -> 양옆공백자름
@@ -32,56 +29,91 @@ public class Main {
       }
 
 
-
-
-
-
       if (cmd.equals("article write")) {
         int id = lastArticleId + 1;
         lastArticleId = id;
 
-          System.out.printf("제목 : ");
-          String title = sc.nextLine();
-          System.out.printf("내용 : ");
-          String body = sc.nextLine();
+        System.out.printf("제목 : ");
+        String title = sc.nextLine();
+        System.out.printf("내용 : ");
+        String body = sc.nextLine();
 
 
-       Article article = new Article(id, title, body);
-       articles.add(article); // 리모컨 어레이리스트에 추가
+        Article article = new Article(id, title, body);
+        articles.add(article); // 리모컨 어레이리스트에 추가
 
 
- //       System.out.printf("%s, %s\n", title, body);
+        //       System.out.printf("%s, %s\n", title, body);
         System.out.printf("%d번 글이 생성 되었습니다\n", id);
 
 
+      } else if (cmd.startsWith("article detail ")) {
+        String[] cmdBits = cmd.split("  ");
+//        cmdBits[0]; // article
+//        cmdBits[1]; // detail
+//        cmdBits[2]; // 게시글번호정보
+        int id = Integer.parseInt(cmdBits[2]); //"2" -> 정수 2
 
 
 
+        Article foundArticle = null;
 
 
+        for (int i = 0; i < articles.size(); i++) { // 리스트 순회
+          Article article = articles.get(i); //인덱스에서 꺼내옴
+          if (article.id == id) {
 
-
-
-
-      } else if (cmd.equals("article list")) {
-        if (articles.size() == 0) {
-          System.out.println("게시글이 없습니다");
-          continue;
-
-
-        } else {
-          for (int i = articles.size() - 1; i >= 0; i--) {
-            Article article = articles.get(i);
-            System.out.printf("%d, %s\n", article.id, article.title);
+            foundArticle = article; // 내용 제목 날짜 번호 article 리모컨
+            break;
           }
-          System.out.println("게시글이 존재");
+        }
+        if (foundArticle == null) {
+          System.out.printf("%d번 게시글은 존재하지 않습니다.\n", id);
+          continue;
         }
 
-      } else{
-            System.out.println("존재하지 않는 명령어입니다");
-            continue;
-          }
+        System.out.printf("번호 : %d\n", foundArticle.id);
+        System.out.printf("날짜 : 2023-12-09 12:12:12\n");
+        System.out.printf("제목 : %s\n", foundArticle.title);
+        System.out.printf("내용 : %s\n", foundArticle.body);
+      } else {
+        for (int i = articles.size() - 1; i >= 0; i--) {
+          Article article = articles.get(i);
+          System.out.printf("%d, %s\n", article.id, article.title);
+        }
+        System.out.println("게시글이 존재");
+      }
+
+
+      else {
+      System.out.println("존재하지 않는 명령어입니다");
+      continue;
+
     }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
